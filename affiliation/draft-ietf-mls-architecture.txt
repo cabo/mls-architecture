@@ -5,7 +5,7 @@
 Network Working Group                                      B. Beurdouche
 Internet-Draft                                           Inria & Mozilla
 Intended status: Informational                               E. Rescorla
-Expires: 7 November 2022                                         Mozilla
+Expires: 11 November 2022                                        Mozilla
                                                                 E. Omara
                                                                   Google
                                                                S. Inguva
@@ -14,7 +14,7 @@ Expires: 7 November 2022                                         Mozilla
                                                                      MIT
                                                                 A. Duric
                                                                     Wire
-                                                              6 May 2022
+                                                             10 May 2022
 
 
             The Messaging Layer Security (MLS) Architecture
@@ -74,7 +74,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 November 2022.
+   This Internet-Draft will expire on 11 November 2022.
 
 Copyright Notice
 
@@ -1470,8 +1470,7 @@ Table of Contents
       konrad.kohbrok@datashrine.de
 
    *  Thyla van der Merwe
-      ETH Zurich
-      thyla.van.der@merwe.tech
+      tjvdmerwe@gmail.com
 
    *  Jon Millican
       Meta Platforms
