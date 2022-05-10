@@ -5,7 +5,7 @@
 Network Working Group                                      B. Beurdouche
 Internet-Draft                                           Inria & Mozilla
 Intended status: Informational                               E. Rescorla
-Expires: 23 September 2022                                       Mozilla
+Expires: 11 November 2022                                        Mozilla
                                                                 E. Omara
                                                                   Google
                                                                S. Inguva
@@ -14,7 +14,7 @@ Expires: 23 September 2022                                       Mozilla
                                                                      MIT
                                                                 A. Duric
                                                                     Wire
-                                                           22 March 2022
+                                                             10 May 2022
 
 
             The Messaging Layer Security (MLS) Architecture
@@ -74,7 +74,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 September 2022.
+   This Internet-Draft will expire on 11 November 2022.
 
 Copyright Notice
 
@@ -1455,7 +1455,7 @@ Table of Contents
       rlb@ipv.sx
 
    *  Katriel Cohn-Gordon
-      University of Oxford
+      Meta Platforms
       me@katriel.co.uk
 
    *  Cas Cremers
@@ -1467,20 +1467,17 @@ Table of Contents
       britta.hale@nps.edu
 
    *  Konrad Kohbrok
-      Wire
-      konrad@wire.com
+      konrad.kohbrok@datashrine.de
 
    *  Thyla van der Merwe
-      Royal Holloway, University of London
-      thyla.van.der@merwe.tech
+      tjvdmerwe@gmail.com
 
    *  Jon Millican
-      Facebook
+      Meta Platforms
       jmillican@fb.com
 
    *  Raphael Robert
-      Wire
-      raphael@wire.com
+      ietf@raphaelrobert.com
 
 9.  References
 
@@ -1490,9 +1487,9 @@ Table of Contents
               Barnes, R., Beurdouche, B., Robert, R., Millican, J.,
               Omara, E., and K. Cohn-Gordon, "The Messaging Layer
               Security (MLS) Protocol", Work in Progress, Internet-
-              Draft, draft-ietf-mls-protocol-13, 7 March 2022,
+              Draft, draft-ietf-mls-protocol-14, 3 May 2022,
               <https://datatracker.ietf.org/doc/html/draft-ietf-mls-
-              protocol-13>.
+              protocol-14>.
 
 9.2.  Informative References
 
