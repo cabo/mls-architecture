@@ -136,11 +136,13 @@ Table of Contents
        6.4.2.  Delivery Service Compromise
        6.4.3.  Authentication Service Compromise
      6.5.  Considerations for attacks outside of the threat model
-   7.  IANA Considerations
-   8.  Contributors
-   9.  References
-     9.1.  Normative References
-     9.2.  Informative References
+     6.6.  Cryptographic Analysis of the MLS Protocol
+   7.  Informative References
+   8.  IANA Considerations
+   9.  Contributors
+   10. References
+     10.1.  Normative References
+     10.2.  Informative References
    Authors' Addresses
 
 1.  Introduction
@@ -1457,11 +1459,49 @@ Table of Contents
       setting, HSMs and secure enclaves can be used to protect signature
       keys.
 
-7.  IANA Considerations
+6.6.  Cryptographic Analysis of the MLS Protocol
+
+   Various academic works have analyzed MLS and the different security
+   guarantees it aims to provide.  The security of large parts of the
+   protocol has been analyzed by [BBN19] (draft 7), [ACDT21] (draft 11)
+   and [AJM20] (draft 12).
+
+   Individual components of various drafts of the MLS protocol have been
+   analyzed in isolation and with differing adversarial models, for
+   example, [BBR18], [ACDT19], [ACCKKMPPWY19], [AJM20] and [ACJM20]
+   analyze the ratcheting tree as the sub-protocol of MLS that
+   facilitates key agreement, while [BCK21] analyzes the key derivation
+   paths in the ratchet tree and key schedule.  Finally, [CHK19]
+   analyzes the authentication and cross-group healing guarantees
+   provided by MLS.
+
+7.  Informative References
+
+   *  ACDT19: https://eprint.iacr.org/2019/1189
+
+   *  ACCKKMPPWY19: https://eprint.iacr.org/2019/1489
+
+   *  ACJM20: https://eprint.iacr.org/2020/752
+
+   *  AJM20: https://eprint.iacr.org/2020/1327
+
+   *  ACDT21: https://eprint.iacr.org/2021/1083
+
+   *  AHKM21: https://eprint.iacr.org/2021/1456
+
+   *  CHK19: https://eprint.iacr.org/2021/137
+
+   *  BCK21: https://eprint.iacr.org/2021/137
+
+   *  BBR18: https://hal.inria.fr/hal-02425247
+
+   *  BBN19: https://hal.laas.fr/INRIA/hal-02425229
+
+8.  IANA Considerations
 
    This document makes no requests of IANA.
 
-8.  Contributors
+9.  Contributors
 
    *  Richard Barnes
       Cisco
@@ -1492,9 +1532,9 @@ Table of Contents
    *  Raphael Robert
       ietf@raphaelrobert.com
 
-9.  References
+10.  References
 
-9.1.  Normative References
+10.1.  Normative References
 
    [I-D.ietf-mls-protocol]
               Barnes, R., Beurdouche, B., Robert, R., Millican, J.,
@@ -1504,7 +1544,7 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-ietf-mls-
               protocol-14>.
 
-9.2.  Informative References
+10.2.  Informative References
 
    [KeyTransparency]
               Google, "Key Transparency", 2017,
