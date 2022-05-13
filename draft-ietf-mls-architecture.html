@@ -1401,21 +1401,35 @@ secret key establishment that is part of the MLS protocol.<a href="#section-2-4.
       </ul>
 <p id="section-2-5">For convenience, this document adopts the representation of these
 services being standalone servers, however the MLS protocol design is
-made so that it is not necessarily the case.<a href="#section-2-5" class="pilcrow">¶</a></p>
-<p id="section-2-6">It is important to note that the Authentication Service functionality
+made so that it is not necessarily the case.  These services may reside on the
+same server or different servers; they may be distributed between server and
+client components; and they may even involve some action by users.  For example:<a href="#section-2-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-2-6.1">Several secure messaging services today provide a centralized DS, and
+rely on manual comparison of clients' public keys as the AS.<a href="#section-2-6.1" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-2-6.2">MLS clients connected to a peer-to-peer network could instantiate a
+decentralized DS by transmitting MLS messages over that network.<a href="#section-2-6.2" class="pilcrow">¶</a>
+</li>
+        <li class="normal" id="section-2-6.3">In an MLS group using a PKI for authentication, the AS would comprise the
+certificate issuance and validation processes, both of which involve logic
+inside MLS clients as well as various servers.<a href="#section-2-6.3" class="pilcrow">¶</a>
+</li>
+      </ul>
+<p id="section-2-7">It is important to note that the Authentication Service functionality
 can be completely abstract in the case of a Service Provider which
 allows MLS clients to generate, redistribute and validate their
-credentials themselves.<a href="#section-2-6" class="pilcrow">¶</a></p>
-<p id="section-2-7">Similarly to the AS, the Delivery Service can be completely abstract
+credentials themselves.<a href="#section-2-7" class="pilcrow">¶</a></p>
+<p id="section-2-8">Similarly to the AS, the Delivery Service can be completely abstract
 if users are able to distribute credentials and messages without
 relying on a central Delivery Service. Note, though, that the MLS
 protocol requires group operation messages to be processed in-order by
-all MLS clients.<a href="#section-2-7" class="pilcrow">¶</a></p>
-<p id="section-2-8">In some sense, a set of MLS clients which can achieve the AS and DS
+all MLS clients.<a href="#section-2-8" class="pilcrow">¶</a></p>
+<p id="section-2-9">In some sense, a set of MLS clients which can achieve the AS and DS
 functionalities without relying on an external party do not need a
-Service Provider.<a href="#section-2-8" class="pilcrow">¶</a></p>
-<div id="section-2-9">
-        <div class="alignLeft art-svg artwork" id="section-2-9.1">
+Service Provider.<a href="#section-2-9" class="pilcrow">¶</a></p>
+<div id="section-2-10">
+        <div class="alignLeft art-svg artwork" id="section-2-10.1">
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="256" width="456" viewBox="0 0 456 256" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
             <path d="M 8,32 L 8,80" fill="none" stroke="black"></path>
             <path d="M 80,144 L 80,176" fill="none" stroke="black"></path>
@@ -1475,70 +1489,70 @@ Service Provider.<a href="#section-2-8" class="pilcrow">¶</a></p>
               <text x="448" y="212">.</text>
               <text x="316" y="228">..................................</text>
             </g>
-          </svg><a href="#section-2-9.1" class="pilcrow">¶</a>
+          </svg><a href="#section-2-10.1" class="pilcrow">¶</a>
 </div>
 </div>
-<p id="section-2-10">In many systems, the AS and the DS are actually operated by the same
+<p id="section-2-11">In many systems, the AS and the DS are actually operated by the same
 entity and may even be the same server. However, they are logically
 distinct and, in other systems, may be operated by different entities.
 Other partitions are also possible, such as having a separate
-directory functionality or service.<a href="#section-2-10" class="pilcrow">¶</a></p>
-<p id="section-2-11">According to this architecture design, a typical group messaging
-scenario might look like this:<a href="#section-2-11" class="pilcrow">¶</a></p>
-<ol start="1" type="1" class="normal type-1" id="section-2-12">
-<li id="section-2-12.1">Alice, Bob and Charlie create accounts with a service
-provider and obtain credentials from the AS.<a href="#section-2-12.1" class="pilcrow">¶</a>
+directory functionality or service.<a href="#section-2-11" class="pilcrow">¶</a></p>
+<p id="section-2-12">According to this architecture design, a typical group messaging
+scenario might look like this:<a href="#section-2-12" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-2-13">
+<li id="section-2-13.1">Alice, Bob and Charlie create accounts with a service
+provider and obtain credentials from the AS.<a href="#section-2-13.1" class="pilcrow">¶</a>
 </li>
-        <li id="section-2-12.2">Alice, Bob and Charlie authenticate to the DS and store
+        <li id="section-2-13.2">Alice, Bob and Charlie authenticate to the DS and store
 some initial keying material which can be used to send encrypted
 messages to them for the first time. This keying material is
-authenticated with their long term credentials.<a href="#section-2-12.2" class="pilcrow">¶</a>
+authenticated with their long term credentials.<a href="#section-2-13.2" class="pilcrow">¶</a>
 </li>
-        <li id="section-2-12.3">When Alice wants to send a message to Bob and Charlie, she
+        <li id="section-2-13.3">When Alice wants to send a message to Bob and Charlie, she
 contacts the DS and looks up their initial keying material.
 She uses these keys to establish a new set of keys which she can
 use to send encrypted messages to Bob and Charlie. She then sends
 the encrypted message(s) to the DS, which forwards them to the
-recipients.<a href="#section-2-12.3" class="pilcrow">¶</a>
+recipients.<a href="#section-2-13.3" class="pilcrow">¶</a>
 </li>
-        <li id="section-2-12.4">Bob and/or Charlie respond to Alice's message. In addition, they
+        <li id="section-2-13.4">Bob and/or Charlie respond to Alice's message. In addition, they
 might choose to update their key material which provides
 post-compromise security <a href="#fs-and-pcs" class="xref">Section 6.2.2</a>. As a consequence of that
-change, the group secrets are updated.<a href="#section-2-12.4" class="pilcrow">¶</a>
+change, the group secrets are updated.<a href="#section-2-13.4" class="pilcrow">¶</a>
 </li>
       </ol>
-<p id="section-2-13">Clients may wish to do the following:<a href="#section-2-13" class="pilcrow">¶</a></p>
+<p id="section-2-14">Clients may wish to do the following:<a href="#section-2-14" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2-14.1">create a group by inviting a set of other clients;<a href="#section-2-14.1" class="pilcrow">¶</a>
+<li class="normal" id="section-2-15.1">create a group by inviting a set of other clients;<a href="#section-2-15.1" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-14.2">add one or more clients to an existing group;<a href="#section-2-14.2" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-15.2">add one or more clients to an existing group;<a href="#section-2-15.2" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-14.3">remove one or more members from an existing group;<a href="#section-2-14.3" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-15.3">remove one or more members from an existing group;<a href="#section-2-15.3" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-14.4">update their own key material<a href="#section-2-14.4" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-15.4">update their own key material<a href="#section-2-15.4" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-14.5">join an existing group;<a href="#section-2-14.5" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-15.5">join an existing group;<a href="#section-2-15.5" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-14.6">leave a group;<a href="#section-2-14.6" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-15.6">leave a group;<a href="#section-2-15.6" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-14.7">send a message to everyone in the group;<a href="#section-2-14.7" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-15.7">send a message to everyone in the group;<a href="#section-2-15.7" class="pilcrow">¶</a>
 </li>
-        <li class="normal" id="section-2-14.8">receive a message from someone in the group.<a href="#section-2-14.8" class="pilcrow">¶</a>
+        <li class="normal" id="section-2-15.8">receive a message from someone in the group.<a href="#section-2-15.8" class="pilcrow">¶</a>
 </li>
       </ul>
-<p id="section-2-15">At the cryptographic level, clients (and by extension members in
+<p id="section-2-16">At the cryptographic level, clients (and by extension members in
 groups) have equal permissions. For instance, any member can add
 or remove another client in a group. This is in contrast to some
 designs in which there is a single group controller who can modify the
 group. MLS is compatible with having group administration restricted
 to certain users, but we assume that those restrictions are enforced
-by authentication and access control at the application layer.<a href="#section-2-15" class="pilcrow">¶</a></p>
-<p id="section-2-16">Thus, for instance, while the MLS protocol allows for any existing
+by authentication and access control at the application layer.<a href="#section-2-16" class="pilcrow">¶</a></p>
+<p id="section-2-17">Thus, for instance, while the MLS protocol allows for any existing
 member of a group to add a new client, applications which use MLS
 might enforce additional restrictions for which only a subset of
 members can qualify, and thus will handle enforcing group policies
 (such as determining if a user is allowed to add new users to the
-group) at the application level.<a href="#section-2-16" class="pilcrow">¶</a></p>
+group) at the application level.<a href="#section-2-17" class="pilcrow">¶</a></p>
 <div id="group-members-and-clients">
 <section id="section-2.1">
         <h3 id="name-group-members-and-clients">
