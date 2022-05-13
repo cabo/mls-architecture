@@ -13,27 +13,27 @@
 <meta content="Alan Duric" name="author">
 <meta content="
        The Messaging Layer Security (MLS) protocol   specification has
-the role of defining a Group Key Agreement, all the necessary
-cryptographic operations, and serialization/deserialization functions
-necessary to create a scalable and secure group messaging protocol.
+the role of defining a Group Key Agreement protocol, including all the
+cryptographic operations and serialization/deserialization functions
+necessary for scalable and secure group messaging.
 The MLS protocol is meant to protect against eavesdropping, tampering,
-message forgery, and provide good properties such as forward-secrecy
+message forgery, and provide further properties such as forward secrecy
 (FS) and post-compromise security (PCS) in the case of past or future
 device compromises. 
        This document describes a general
 secure group messaging infrastructure and its security goals.  It
 provides guidance on building a group messaging system and discusses
-security and privacy tradeoffs offered by multiple security mechanism
+security and privacy tradeoffs offered by multiple security mechanisms
 that are part of the MLS protocol (e.g., frequency of public encryption
 key rotation). 
-       The document also extends the guidance to parts of the infrastructure
+       The document also provides guidance for parts of the infrastructure
 that are not standardized by the MLS Protocol document and left to the
 application or the infrastructure architects to design. 
        While the recommendations of this document are not mandatory to follow
 in order to interoperate at the protocol level,
 they affect the overall security guarantees that are achieved by a
 messaging application. This is especially true in case of active
-adversaries that are able to compromise clients, the delivery service
+adversaries that are able to compromise clients, the delivery service,
 or the authentication service. 
     " name="description">
 <meta content="xml2rfc 3.12.6" name="generator">
@@ -1044,7 +1044,7 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beurdouche, et al.</td>
-<td class="center">Expires 11 November 2022</td>
+<td class="center">Expires 14 November 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1057,12 +1057,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-ietf-mls-architecture-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-05-10" class="published">10 May 2022</time>
+<time datetime="2022-05-13" class="published">13 May 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-11-11">11 November 2022</time></dd>
+<dd class="expires"><time datetime="2022-11-14">14 November 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1096,27 +1096,27 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
 <p id="section-abstract-1">The Messaging Layer Security (MLS) protocol <span>[<a href="#I-D.ietf-mls-protocol" class="xref">I-D.ietf-mls-protocol</a>]</span> specification has
-the role of defining a Group Key Agreement, all the necessary
-cryptographic operations, and serialization/deserialization functions
-necessary to create a scalable and secure group messaging protocol.
+the role of defining a Group Key Agreement protocol, including all the
+cryptographic operations and serialization/deserialization functions
+necessary for scalable and secure group messaging.
 The MLS protocol is meant to protect against eavesdropping, tampering,
-message forgery, and provide good properties such as forward-secrecy
+message forgery, and provide further properties such as forward secrecy
 (FS) and post-compromise security (PCS) in the case of past or future
 device compromises.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 <p id="section-abstract-2">This document describes a general
 secure group messaging infrastructure and its security goals.  It
 provides guidance on building a group messaging system and discusses
-security and privacy tradeoffs offered by multiple security mechanism
+security and privacy tradeoffs offered by multiple security mechanisms
 that are part of the MLS protocol (e.g., frequency of public encryption
 key rotation).<a href="#section-abstract-2" class="pilcrow">¶</a></p>
-<p id="section-abstract-3">The document also extends the guidance to parts of the infrastructure
+<p id="section-abstract-3">The document also provides guidance for parts of the infrastructure
 that are not standardized by the MLS Protocol document and left to the
 application or the infrastructure architects to design.<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 <p id="section-abstract-4">While the recommendations of this document are not mandatory to follow
 in order to interoperate at the protocol level,
 they affect the overall security guarantees that are achieved by a
 messaging application. This is especially true in case of active
-adversaries that are able to compromise clients, the delivery service
+adversaries that are able to compromise clients, the delivery service,
 or the authentication service.<a href="#section-abstract-4" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
@@ -1149,7 +1149,7 @@ or the authentication service.<a href="#section-abstract-4" class="pilcrow">¶</
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 11 November 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 November 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1414,23 +1414,69 @@ all MLS clients.<a href="#section-2-7" class="pilcrow">¶</a></p>
 <p id="section-2-8">In some sense, a set of MLS clients which can achieve the AS and DS
 functionalities without relying on an external party do not need a
 Service Provider.<a href="#section-2-8" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-2-9">
-<pre>
-      ----------------      --------------
-     | Authentication |    | Delivery     |
-     | Service (AS)   |    | Service (DS) |
-      ----------------      --------------
-                         /        |         \            Group
-                        / ************************************
-                       /  *       |           \              *
-            ----------    *   ----------        ----------   *
-           | Client 0 |   *  | Member 1 |      | Member N |  *
-            ----------    *   ----------        ----------   *
-           ............   *  ............      ............  *
-           User 0         *  User 0            User 1        *
-                          *                                  *
-                          ************************************
-</pre><a href="#section-2-9" class="pilcrow">¶</a>
+<div id="section-2-9">
+        <div class="alignLeft art-svg artwork" id="section-2-9.1">
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="256" width="456" viewBox="0 0 456 256" class="diagram" text-anchor="middle" font-family="monospace" font-size="13px">
+            <path d="M 8,32 L 8,80" fill="none" stroke="black"></path>
+            <path d="M 80,144 L 80,176" fill="none" stroke="black"></path>
+            <path d="M 144,32 L 144,80" fill="none" stroke="black"></path>
+            <path d="M 168,144 L 168,176" fill="none" stroke="black"></path>
+            <path d="M 184,32 L 184,80" fill="none" stroke="black"></path>
+            <path d="M 208,144 L 208,176" fill="none" stroke="black"></path>
+            <path d="M 248,80 L 248,144" fill="none" stroke="black"></path>
+            <path d="M 296,144 L 296,176" fill="none" stroke="black"></path>
+            <path d="M 304,32 L 304,80" fill="none" stroke="black"></path>
+            <path d="M 336,144 L 336,176" fill="none" stroke="black"></path>
+            <path d="M 424,144 L 424,176" fill="none" stroke="black"></path>
+            <path d="M 8,32 L 144,32" fill="none" stroke="black"></path>
+            <path d="M 184,32 L 304,32" fill="none" stroke="black"></path>
+            <path d="M 8,80 L 144,80" fill="none" stroke="black"></path>
+            <path d="M 184,80 L 304,80" fill="none" stroke="black"></path>
+            <path d="M 80,144 L 168,144" fill="none" stroke="black"></path>
+            <path d="M 208,144 L 296,144" fill="none" stroke="black"></path>
+            <path d="M 336,144 L 424,144" fill="none" stroke="black"></path>
+            <path d="M 80,176 L 168,176" fill="none" stroke="black"></path>
+            <path d="M 208,176 L 296,176" fill="none" stroke="black"></path>
+            <path d="M 336,176 L 424,176" fill="none" stroke="black"></path>
+            <path d="M 304,80 L 336,144" fill="none" stroke="black"></path>
+            <path d="M 152,144 L 184,80" fill="none" stroke="black"></path>
+            <g class="text">
+              <text x="76" y="52">Authentication</text>
+              <text x="244" y="52">Delivery</text>
+              <text x="56" y="68">Service</text>
+              <text x="108" y="68">(AS)</text>
+              <text x="224" y="68">Service</text>
+              <text x="276" y="68">(DS)</text>
+              <text x="432" y="100">Group</text>
+              <text x="212" y="116">........</text>
+              <text x="284" y="116">........</text>
+              <text x="388" y="116">................</text>
+              <text x="184" y="132">.</text>
+              <text x="448" y="132">.</text>
+              <text x="184" y="148">.</text>
+              <text x="448" y="148">.</text>
+              <text x="116" y="164">Client</text>
+              <text x="152" y="164">1</text>
+              <text x="184" y="164">.</text>
+              <text x="244" y="164">Client</text>
+              <text x="280" y="164">2</text>
+              <text x="372" y="164">Client</text>
+              <text x="408" y="164">3</text>
+              <text x="448" y="164">.</text>
+              <text x="184" y="180">.</text>
+              <text x="448" y="180">.</text>
+              <text x="184" y="196">.</text>
+              <text x="236" y="196">Member</text>
+              <text x="272" y="196">1</text>
+              <text x="364" y="196">Member</text>
+              <text x="400" y="196">2</text>
+              <text x="448" y="196">.</text>
+              <text x="184" y="212">.</text>
+              <text x="448" y="212">.</text>
+              <text x="316" y="228">..................................</text>
+            </g>
+          </svg><a href="#section-2-9.1" class="pilcrow">¶</a>
+</div>
 </div>
 <p id="section-2-10">In many systems, the AS and the DS are actually operated by the same
 entity and may even be the same server. However, they are logically
