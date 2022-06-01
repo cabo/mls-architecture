@@ -5,7 +5,7 @@
 Network Working Group                                      B. Beurdouche
 Internet-Draft                                           Inria & Mozilla
 Intended status: Informational                               E. Rescorla
-Expires: 2 December 2022                                         Mozilla
+Expires: 3 December 2022                                         Mozilla
                                                                 E. Omara
                                                                   Google
                                                                S. Inguva
@@ -14,7 +14,7 @@ Expires: 2 December 2022                                         Mozilla
                                                                      MIT
                                                                 A. Duric
                                                                     Wire
-                                                             31 May 2022
+                                                             1 June 2022
 
 
             The Messaging Layer Security (MLS) Architecture
@@ -74,7 +74,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 December 2022.
+   This Internet-Draft will expire on 3 December 2022.
 
 Copyright Notice
 
@@ -110,8 +110,9 @@ Table of Contents
      5.5.  Recovery After State Loss
      5.6.  Support for Multiple Devices
      5.7.  Extensibility
-     5.8.  Federation
-     5.9.  Compatibility with Future Versions of MLS
+     5.8.  Application Data Framing and Negotiation
+     5.9.  Federation
+     5.10. Compatibility with Future Versions of MLS
    6.  Security and Privacy Considerations
      6.1.  Assumptions on Transport Security Links
        6.1.1.  Metadata Protection for Unencrypted Group Operations
@@ -708,14 +709,27 @@ Table of Contents
    agreement properties of MLS will confirm that all members of the
    group agree on the content of these extensions.
 
-   Application messages carried by MLS are opaque; they can contain
-   arbitrary data.  The MLS framing for application messages also
-   provides a field where clients can send information that is
-   authenticated but not encrypted.  Such information can be used by
-   servers that handle the message, but group members are assured that
-   it has not been tampered with.
+5.8.  Application Data Framing and Negotiation
 
-5.8.  Federation
+   Application messages carried by MLS are opaque to the protocol; they
+   can contain arbitrary data.  Each application which uses MLS needs to
+   define the format of its application_data and any mechanism necessary
+   to negotiate the format of that content over the lifetime of an MLS
+   group.  In many applications this means managing format migrations
+   for groups with multiple members who may each be offline at
+   unpredictable times.
+
+      *RECOMMENDATION:* Use the default content mechanism defined in
+      [I-D.mahy-mls-content-neg], unless the specific application
+      defines another mechanism which more appropriately addresses the
+      same requirements for that application of MLS.
+
+   The MLS framing for application messages also provides a field where
+   clients can send information that is authenticated but not encrypted.
+   Such information can be used by servers that handle the message, but
+   group members are assured that it has not been tampered with.
+
+5.9.  Federation
 
    The protocol aims to be compatible with federated environments.
    While this document does not specify all necessary mechanisms
@@ -724,7 +738,7 @@ Table of Contents
    authentication mechanisms, ciphersuites, and infrastructure
    functionalities.
 
-5.9.  Compatibility with Future Versions of MLS
+5.10.  Compatibility with Future Versions of MLS
 
    It is important that multiple versions of MLS be able to coexist in
    the future.  Thus, MLS offers a version negotiation mechanism; this
@@ -1545,6 +1559,13 @@ Table of Contents
               protocol-14>.
 
 10.2.  Informative References
+
+   [I-D.mahy-mls-content-neg]
+              Mahy, R., "Content Negotiation for Message Layer Security
+              (MLS)", Work in Progress, Internet-Draft, draft-mahy-mls-
+              content-neg-00, 31 March 2022,
+              <https://datatracker.ietf.org/doc/html/draft-mahy-mls-
+              content-neg-00>.
 
    [KeyTransparency]
               Google, "Key Transparency", 2017,

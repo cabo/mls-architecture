@@ -1040,11 +1040,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">MLS Architecture</td>
-<td class="right">May 2022</td>
+<td class="right">June 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beurdouche, et al.</td>
-<td class="center">Expires 2 December 2022</td>
+<td class="center">Expires 3 December 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1057,12 +1057,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-ietf-mls-architecture-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-05-31" class="published">31 May 2022</time>
+<time datetime="2022-06-01" class="published">1 June 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-12-02">2 December 2022</time></dd>
+<dd class="expires"><time datetime="2022-12-03">3 December 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1149,7 +1149,7 @@ or the authentication service.<a href="#section-abstract-4" class="pilcrow">¶</
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 December 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 December 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1237,10 +1237,13 @@ or the authentication service.<a href="#section-abstract-4" class="pilcrow">¶</
                 <p id="section-toc.1-1.5.2.7.1"><a href="#section-5.7" class="xref">5.7</a>.  <a href="#name-extensibility" class="xref">Extensibility</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8">
-                <p id="section-toc.1-1.5.2.8.1"><a href="#section-5.8" class="xref">5.8</a>.  <a href="#name-federation" class="xref">Federation</a></p>
+                <p id="section-toc.1-1.5.2.8.1"><a href="#section-5.8" class="xref">5.8</a>.  <a href="#name-application-data-framing-an" class="xref">Application Data Framing and Negotiation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.9">
-                <p id="section-toc.1-1.5.2.9.1"><a href="#section-5.9" class="xref">5.9</a>.  <a href="#name-compatibility-with-future-v" class="xref">Compatibility with Future Versions of MLS</a></p>
+                <p id="section-toc.1-1.5.2.9.1"><a href="#section-5.9" class="xref">5.9</a>.  <a href="#name-federation" class="xref">Federation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.10">
+                <p id="section-toc.1-1.5.2.10.1"><a href="#section-5.10" class="xref">5.10</a>. <a href="#name-compatibility-with-future-v" class="xref">Compatibility with Future Versions of MLS</a></p>
 </li>
             </ul>
 </li>
@@ -1985,47 +1988,67 @@ can be provided.  Extensions to KeyPackages allow clients to disclose additional
 information about their capabilities.  Groups can also have extension data
 associated with them, and the group agreement properties of MLS will confirm that
 all members of the group agree on the content of these extensions.<a href="#section-5.7-1" class="pilcrow">¶</a></p>
-<p id="section-5.7-2">Application messages carried by MLS are opaque; they can contain arbitrary data.
-The MLS framing for application messages also provides a field where clients can
+</section>
+</div>
+<div id="application-data-framing-and-negotiation">
+<section id="section-5.8">
+        <h3 id="name-application-data-framing-an">
+<a href="#section-5.8" class="section-number selfRef">5.8. </a><a href="#name-application-data-framing-an" class="section-name selfRef">Application Data Framing and Negotiation</a>
+        </h3>
+<p id="section-5.8-1">Application messages carried by MLS are opaque to the protocol; they can contain
+arbitrary data. Each application which uses MLS needs to define the format of its
+<code>application_data</code> and any mechanism necessary to negotiate the format of that
+content over the lifetime of an MLS group. In many applications this means
+managing format migrations for groups with multiple members who may each be
+offline at unpredictable times.<a href="#section-5.8-1" class="pilcrow">¶</a></p>
+<ul class="normal ulEmpty">
+<li class="normal ulEmpty" id="section-5.8-2.1">
+            <p id="section-5.8-2.1.1"><strong>RECOMMENDATION:</strong>
+Use the default content mechanism defined in <span>[<a href="#I-D.mahy-mls-content-neg" class="xref">I-D.mahy-mls-content-neg</a>]</span>,
+unless the specific application defines another mechanism which more
+appropriately addresses the same requirements for that application of MLS.<a href="#section-5.8-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-5.8-3">The MLS framing for application messages also provides a field where clients can
 send information that is authenticated but not encrypted.  Such information can
 be used by servers that handle the message, but group members are assured that
-it has not been tampered with.<a href="#section-5.7-2" class="pilcrow">¶</a></p>
+it has not been tampered with.<a href="#section-5.8-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="federation">
-<section id="section-5.8">
+<section id="section-5.9">
         <h3 id="name-federation">
-<a href="#section-5.8" class="section-number selfRef">5.8. </a><a href="#name-federation" class="section-name selfRef">Federation</a>
+<a href="#section-5.9" class="section-number selfRef">5.9. </a><a href="#name-federation" class="section-name selfRef">Federation</a>
         </h3>
-<p id="section-5.8-1">The protocol aims to be compatible with federated environments. While
+<p id="section-5.9-1">The protocol aims to be compatible with federated environments. While
 this document does not specify all necessary mechanisms required for
 federation, multiple MLS implementations can interoperate to form
 federated systems if they use compatible authentication mechanisms,
-ciphersuites, and infrastructure functionalities.<a href="#section-5.8-1" class="pilcrow">¶</a></p>
+ciphersuites, and infrastructure functionalities.<a href="#section-5.9-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="compatibility-with-future-versions-of-mls">
-<section id="section-5.9">
+<section id="section-5.10">
         <h3 id="name-compatibility-with-future-v">
-<a href="#section-5.9" class="section-number selfRef">5.9. </a><a href="#name-compatibility-with-future-v" class="section-name selfRef">Compatibility with Future Versions of MLS</a>
+<a href="#section-5.10" class="section-number selfRef">5.10. </a><a href="#name-compatibility-with-future-v" class="section-name selfRef">Compatibility with Future Versions of MLS</a>
         </h3>
-<p id="section-5.9-1">It is important that multiple versions of MLS be able to coexist in
+<p id="section-5.10-1">It is important that multiple versions of MLS be able to coexist in
 the future. Thus, MLS offers a version negotiation mechanism; this
 mechanism prevents version downgrade attacks where an attacker would
 actively rewrite messages with a lower protocol version than the ones
 originally offered by the endpoints. When multiple versions of MLS are
 available, the negotiation protocol guarantees that the version agreed
-upon will be the highest version supported in common by the group.<a href="#section-5.9-1" class="pilcrow">¶</a></p>
-<p id="section-5.9-2">In MLS 1.0, the creator of the group is responsible for selecting the
+upon will be the highest version supported in common by the group.<a href="#section-5.10-1" class="pilcrow">¶</a></p>
+<p id="section-5.10-2">In MLS 1.0, the creator of the group is responsible for selecting the
 best ciphersuite supported across clients. Each client is able to
 verify availability of protocol version, ciphersuites and extensions
 at all times once he has at least received the first group operation
-message.<a href="#section-5.9-2" class="pilcrow">¶</a></p>
-<p id="section-5.9-3">Each member of an MLS group advertises the protocol functionality they support.
+message.<a href="#section-5.10-2" class="pilcrow">¶</a></p>
+<p id="section-5.10-3">Each member of an MLS group advertises the protocol functionality they support.
 These capability advertisements can be updated over time, e.g., if client
 software is updated while the client is a member of a group. Thus, in addition
 to preventing downgrade attacks, the members of a group can also observe when it
-is safe to upgrade to a new ciphersuite or protocol version.<a href="#section-5.9-3" class="pilcrow">¶</a></p>
+is safe to upgrade to a new ciphersuite or protocol version.<a href="#section-5.10-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2944,6 +2967,10 @@ ietf@raphaelrobert.com<a href="#section-9-1.8" class="pilcrow">¶</a>
 <a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="I-D.mahy-mls-content-neg">[I-D.mahy-mls-content-neg]</dt>
+        <dd>
+<span class="refAuthor">Mahy, R.</span>, <span class="refTitle">"Content Negotiation for Message Layer Security (MLS)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-mahy-mls-content-neg-00</span>, <time datetime="2022-03-31" class="refDate">31 March 2022</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-mahy-mls-content-neg-00">https://datatracker.ietf.org/doc/html/draft-mahy-mls-content-neg-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="KeyTransparency">[KeyTransparency]</dt>
         <dd>
 <span class="refAuthor">Google</span>, <span class="refTitle">"Key Transparency"</span>, <time datetime="2017" class="refDate">2017</time>, <span>&lt;<a href="https://KeyTransparency.org">https://KeyTransparency.org</a>&gt;</span>. </dd>
