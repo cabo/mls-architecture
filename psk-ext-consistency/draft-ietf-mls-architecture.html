@@ -36,26 +36,26 @@ messaging application. This is especially true in case of active
 adversaries that are able to compromise clients, the delivery service
 or the authentication service. 
     " name="description">
-<meta content="xml2rfc 3.12.6" name="generator">
+<meta content="xml2rfc 3.12.10" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ietf-mls-architecture-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.12.6
-    Python 3.9.7
+  xml2rfc 3.12.10
+    Python 3.10.4
     appdirs 1.4.4
-    ConfigArgParse 1.3
+    ConfigArgParse 1.5.3
     google-i18n-address 2.5.1
     html5lib 1.1
     intervaltree 3.1.0
     Jinja2 2.11.3
     kitchen 1.2.6
-    lxml 4.6.5
+    lxml 4.8.0
     MarkupSafe 2.0.1
     pycountry 20.7.3
-    pyflakes 2.3.1
-    PyYAML 5.4.1
-    requests 2.26.0
-    setuptools 52.0.0
+    pyflakes 2.4.0
+    PyYAML 6.0
+    requests 2.27.1
+    setuptools 59.4.0
     six 1.16.0
 -->
 <link href="draft-ietf-mls-architecture.xml" rel="alternate" type="application/rfc+xml">
@@ -180,6 +180,14 @@ or the authentication service.
   font-weight: 700;
   font-display: swap;
   src: local('Lora Bold'), local('Lora-Bold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-bold-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Lora';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: local('Lora SemiBold'), local('Lora-SemiBold'), url('https://martinthomson.github.io/rfc-css/fonts/lora-semibold-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -363,7 +371,7 @@ ol, ul {
   padding: 0;
   margin: 0 0 0.5em 2em;
 }
-ol ol, ul ul, ol ul, ul ol {
+:is(ol, ul) :is(ol, ul) {
   margin-left: 1em;
 }
 li {
@@ -378,8 +386,7 @@ ul.empty, .ulEmpty {
 ul.empty li, .ulEmpty li {
   margin-top: 0.5em;
 }
-ul.compact, .ulCompact,
-ol.compact, .olCompact {
+:is(ul, ol).compact, .ulCompact, .olCompact {
   line-height: 100%;
   margin: 0 0 0 2em;
 }
@@ -395,7 +402,7 @@ dl > dd {
   margin-bottom: .8em;
   min-height: 1.3em;
 }
-dl.compact > dd, .dlCompact > dd {
+:is(dl.compact, .dlCompact) > dd {
   margin-bottom: 0em;
 }
 dl > dd > dl {
@@ -437,6 +444,9 @@ tt, code {
      remove leading to avoid altering the final height of lines */
   line-height: 0;
 }
+:is(h1, h2, h3, h4, h5, h6) :is(tt, code) {
+  font-size: 84%;
+}
 pre {
   border: 1px solid var(--line-color);
   font-size: 13.5px;
@@ -461,6 +471,19 @@ figcaption, caption {
   text-align: left;
 }
 @media screen {
+  /* Auto-collapse boilerplate. */
+  :is(#status-of-memo, #copyright) p {
+    margin: -2px 0;
+    max-height: 0;
+    transition: max-height 2s ease, margin 0.5s ease 0.5s;
+    overflow: hidden;
+  }
+  :is(#status-of-memo, #copyright):hover p,
+  :is(#status-of-memo, #copyright) h2:target ~ p {
+    margin: 0.5em 0;
+    max-height: 500px;
+    overflow: auto;
+  }
   pre, svg {
     display: inline-block;
     overflow-x: auto;
@@ -476,7 +499,7 @@ figcaption, caption {
     display: block;
     width: calc(100% - 25px);
   }
-  pre + .pilcrow, svg + .pilcrow {
+  :is(pre, svg) + .pilcrow {
     display: inline-block;
     vertical-align: text-bottom;
     padding-bottom: 8px;
@@ -525,17 +548,11 @@ th, td {
 th {
   background-color: var(--line-color);
 }
-tr:nth-child(2n) > td {
+:is(tr:nth-child(2n), thead+tbody > tr:nth-child(2n+1)) > td {
   background-color: var(--background-color);
 }
-tr:nth-child(2n+1) > td {
+:is(tr:nth-child(2n+1), thead+tbody > tr:nth-child(2n)) > td {
   background-color: var(--highlight-color);
-}
-thead+tbody > tr:nth-child(2n) > td {
-  background-color: var(--highlight-color);
-}
-thead+tbody > tr:nth-child(2n+1) > td {
-  background-color: var(--background-color);
 }
 table caption {
   margin: 0;
@@ -575,8 +592,9 @@ hr {
 }
 .bcp14 {
   font-variant: small-caps;
+  font-weight: 600;
+  font-size: 14.5px;
 }
-
 .role {
   font-variant: all-small-caps;
 }
@@ -815,7 +833,7 @@ hr.addr {
     margin: 0 0 0 4px;
     font-size: var(--small-font-size);
   }
-  #toc ul p, #toc ul li {
+  #toc ul :is(p, li) {
     margin: 2px 0;
     line-height: 22px;
   }
@@ -925,13 +943,13 @@ dl.dlNewline > dt {
 }
 
 /* Provide styling for table cell text alignment */
-table .text-left, table .text-left {
+table .text-left {
   text-align: left;
 }
-table .text-center, table .text-center {
+table .text-center {
   text-align: center;
 }
-table .text-right, table .text-right {
+table .text-right {
   text-align: right;
 }
 
@@ -998,12 +1016,6 @@ address div.right {
   }
 
 }
-/* Tweak the bcp14 keyword presentation */
-.bcp14 {
-  font-variant: small-caps;
-  font-weight: bold;
-  font-size: 0.9em;
-}
 
 /* Dark mode. */
 @media (prefers-color-scheme: dark) {
@@ -1018,19 +1030,20 @@ address div.right {
   --pilcrow-strong: #666;
   scrollbar-color: #777 #333;
 }
-/* Trick: a prefix match works because only black and white are allowed */
-svg [stroke="black"], svg [stroke^="#000"] {
+}
+
+/* SVG Trick: a prefix match works because only black and white are allowed */
+svg :is([stroke="black"], [stroke^="#000"]) {
   stroke: var(--text-color);
 }
-svg [stroke="white"], svg [stroke^="#fff"] {
+svg :is([stroke="white"], [stroke^="#fff"]) {
   stroke: var(--background-color);
 }
-svg [fill="black"], svg [fill^="#000"], svg :not([fill]) {
+svg :is([fill="black"], [fill^="#000"], :not([fill])) {
   fill: var(--text-color);
 }
-svg [stroke="fill"], svg [fill^="#fff"] {
+svg :is([stroke="fill"], [fill^="#fff"]) {
   fill: var(--background-color);
-}
 }
 </style>
 
@@ -1040,11 +1053,11 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">MLS Architecture</td>
-<td class="right">May 2022</td>
+<td class="right">June 2022</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Beurdouche, et al.</td>
-<td class="center">Expires 14 November 2022</td>
+<td class="center">Expires 11 December 2022</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1057,12 +1070,12 @@ svg [stroke="fill"], svg [fill^="#fff"] {
 <dd class="internet-draft">draft-ietf-mls-architecture-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2022-05-13" class="published">13 May 2022</time>
+<time datetime="2022-06-09" class="published">9 June 2022</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2022-11-14">14 November 2022</time></dd>
+<dd class="expires"><time datetime="2022-12-11">11 December 2022</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1149,7 +1162,7 @@ or the authentication service.<a href="#section-abstract-4" class="pilcrow">¶</
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 14 November 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 11 December 2022.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1776,19 +1789,19 @@ wish to require authorization from the current group members or a
 subset thereof.  Such policies can be implemented at the application layer, on
 top of MLS. Regardless, MLS does not allow for or support addition
 or removal of group members without informing all other members.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
-<p id="section-5.1-3">MLS provides two mechanisms for changing the membership of a group.  The primary
+<p id="section-5.1-3">Membership of an MLS group is the managed at the level of individual clients.
+In most cases, a client corresponds to a specific device used by a user. If a
+user has multiple devices, the user will be represented in a group by multiple
+clients.  If an application wishes to implement operations at the level of
+users, it is up to the application to track which clients belong to a given user
+and ensure that they are added / removed consistently.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">MLS provides two mechanisms for changing the membership of a group.  The primary
 mechanism is for an authorized member of the group to send a Commit that adds or
-removes other members.  Applications may apply policies to this mechanism.  For
-example, some applications
-might want to allow certain members of the group to add or
-remove devices on behalf of another member, while other applications
-might want a more strict policy and allow only the owner of the
-devices to add or remove them.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
-<p id="section-5.1-4">The second mechanism by which membership can change is an "external join": A
-member of the group publishes certain information about the group, which a new
-member can use to construct an "external" Commit message that adds the new
-member to the group.  (There is no similarly unilateral way for a member to
-leave the group; they must be removed by a remaining member.)<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+removes other members.  The second mechanism is an "external join": A member of
+the group publishes certain information about the group, which a new member can
+use to construct an "external" Commit message that adds the new member to the
+group.  (There is no similarly unilateral way for a member to leave the group;
+they must be removed by a remaining member.)<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 <p id="section-5.1-5">With both mechanisms, changes to the membership are initiated from inside the
 group.  When members perform changes directly, this is clearly the case.
 External joins are authorized indirectly, in the sense that a member publishing
@@ -1900,20 +1913,12 @@ encrypted group operations.<a href="#section-5.4-6.1.1" class="pilcrow">¶</a></
 signers can submit proposals for changes to the group, and new joiners can use
 an external join to add themselves to the group.  The <code>external_senders</code>
 extension ensures that all members agree on which signers are allowed to send
-proposals, but any other policies must be assured to be consistent as above.
-When external joins are allowed in a group, a joiner cannot be vetted before
-joining, so policy enforcement must be reactive.<a href="#section-5.4-7" class="pilcrow">¶</a></p>
+proposals, but any other policies must be assured to be consistent as above.<a href="#section-5.4-7" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
 <li class="normal ulEmpty" id="section-5.4-8.1">
             <p id="section-5.4-8.1.1">** RECOMMENDATION:**
-Have an explicit group policy about whether external joins are allowed.<a href="#section-5.4-8.1.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-5.4-9.1">
-            <p id="section-5.4-9.1.1"><strong>RECOMMENDATION:</strong>
-In a group that allows external join, verify that new joiners are authorized,
-and remove them if not.<a href="#section-5.4-9.1.1" class="pilcrow">¶</a></p>
+Have an explicit group policy setting the conditions under which external
+joins are allowed.<a href="#section-5.4-8.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1927,9 +1932,7 @@ and remove them if not.<a href="#section-5.4-9.1.1" class="pilcrow">¶</a></p>
 state by re-joining the group as a new member and removing the member
 representing their earlier state.  An application can require that a client
 performing such a reinitialization prove its prior membership with a PSK.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
-<p id="section-5.5-2">There are a few costs to this approach.  If a group uses such PSKs as
-the sole form of authorization to join the group, there is a risk that leaked
-PSKs could allow an unauthorized party to join.  At a practical level, the
+<p id="section-5.5-2">There are a few practical challenges to this approach.  For example, the
 application will need to ensure that the new members have the required PSK,
 including any new members that have joined the group since the epoch in which
 the PSK was issued.<a href="#section-5.5-2" class="pilcrow">¶</a></p>
