@@ -570,7 +570,7 @@ Table of Contents
    addition or removal of group members without informing all other
    members.
 
-   Membership of an MLS group is the managed at the level of individual
+   Membership of an MLS group is managed at the level of individual
    clients.  In most cases, a client corresponds to a specific device
    used by a user.  If a user has multiple devices, the user will be
    represented in a group by multiple clients.  If an application wishes
@@ -635,7 +635,7 @@ Table of Contents
    among parallel groups.  For example, suppose a common member M of two
    groups A and B has performed a key update in group A but not in group
    B.  The key update provides PCS with regard to M in group A.  If a
-   PSK exported from group A and injected into group B, then some of
+   PSK is exported from group A and injected into group B, then some of
    these PCS properties carry over to group B, since the PSK and secrets
    derived from it are only known to the new, updated version of M, not
    to the old, possibly compromised version of M.
@@ -706,7 +706,7 @@ Table of Contents
    its prior membership with a PSK.
 
    There are a few practical challenges to this approach.  For example,
-   the application will need to ensure that the new members have the
+   the application will need to ensure that all members have the
    required PSK, including any new members that have joined the group
    since the epoch in which the PSK was issued.
 
